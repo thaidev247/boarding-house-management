@@ -56,3 +56,12 @@ plugins:
       per_consumer: false
       status_code_metrics: true
       upstream_health_metrics: true
+
+  # Thêm rate limit
+  - name: rate-limiting
+    config:
+      minute: 100
+      limit_by: ip
+      policy: local
+      fault_tolerant: true
+      hide_client_headers: false
