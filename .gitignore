@@ -33,4 +33,4 @@ Thumbs.db
 *~
 
 # Sercet
-k8s\grafana\grafana-smtp-secret.yaml
+grafana-smtp-secret.yaml
