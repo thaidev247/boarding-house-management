@@ -31,3 +31,6 @@ Thumbs.db
 *.swp
 *.swo
 *~
+
+# Sercet
+k8s\grafana\grafana-smtp-secret.yaml
