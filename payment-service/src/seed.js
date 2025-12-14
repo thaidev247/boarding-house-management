@@ -1,0 +1,123 @@
+import { Payment } from "./models";
+
+const payments = [
+  {
+    tenantId: 1,
+    userId: 1,
+    month: 1,
+    year: 2025,
+    dueDate: "2025-02-28",
+    oldElectricity: 120,
+    newElectricity: 185,
+    oldWater: 30,
+    newWater: 38,
+  },
+  {
+    tenantId: 2,
+    userId: 2,
+    month: 1,
+    year: 2025,
+    dueDate: "2025-02-28",
+    oldElectricity: 90,
+    newElectricity: 160,
+    oldWater: 22,
+    newWater: 31,
+  },
+  {
+    tenantId: 3,
+    userId: 3,
+    month: 1,
+    year: 2025,
+    dueDate: "2025-02-28",
+    oldElectricity: 200,
+    newElectricity: 265,
+    oldWater: 40,
+    newWater: 52,
+  },
+  {
+    tenantId: 4,
+    userId: 4,
+    month: 2,
+    year: 2025,
+    dueDate: "2025-03-31",
+    oldElectricity: 150,
+    newElectricity: 210,
+    oldWater: 35,
+    newWater: 44,
+  },
+  {
+    tenantId: 5,
+    userId: 5,
+    month: 2,
+    year: 2025,
+    dueDate: "2025-03-31",
+    oldElectricity: 80,
+    newElectricity: 140,
+    oldWater: 18,
+    newWater: 26,
+  },
+  {
+    tenantId: 6,
+    userId: 6,
+    month: 3,
+    year: 2025,
+    dueDate: "2025-04-30",
+    oldElectricity: 300,
+    newElectricity: 380,
+    oldWater: 55,
+    newWater: 70,
+  },
+  {
+    tenantId: 7,
+    userId: 7,
+    month: 3,
+    year: 2025,
+    dueDate: "2025-04-30",
+    oldElectricity: 60,
+    newElectricity: 120,
+    oldWater: 15,
+    newWater: 23,
+  },
+  {
+    tenantId: 8,
+    userId: 8,
+    month: 4,
+    year: 2025,
+    dueDate: "2025-05-31",
+    oldElectricity: 180,
+    newElectricity: 245,
+    oldWater: 33,
+    newWater: 42,
+  },
+  {
+    tenantId: 9,
+    userId: 9,
+    month: 4,
+    year: 2025,
+    dueDate: "2025-05-31",
+    oldElectricity: 220,
+    newElectricity: 295,
+    oldWater: 48,
+    newWater: 60,
+  },
+  {
+    tenantId: 10,
+    userId: 10,
+    month: 5,
+    year: 2025,
+    dueDate: "2025-06-30",
+    oldElectricity: 100,
+    newElectricity: 170,
+    oldWater: 20,
+    newWater: 29,
+  },
+];
+
+(async () => {
+  try {
+    await Payment.bulkCreate(payments);
+    console.log("Đã thêm dữ liệu mẫu");
+  } catch (error) {
+    console.log("Có lỗi xảy ra khi thêm mẫu");
+  }
+})();
