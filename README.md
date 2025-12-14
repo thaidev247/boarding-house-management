@@ -54,6 +54,24 @@ kubectl apply -f ./k8s/kong
 kubectl apply -f ./k8s/grafana
 ```
 
+Expose các cổng của Grafana và Kong API:
+```ssh
+kubectl port-forward svc/grafana 3000:3000
+kubectl port-forward svc/kong 8001:8001
+kubectl port-forward svc/kong 8000:8000
+```
+
+Chạy trang web frontend (dùng bun [Bun](https://bun.sh/) package manager):
+```sh
+cd ./frontend
+bun install
+bun dev
+```
+
+Đăng nhập bằng tài khoản Admin có sẵn:
+- Số điện thoại: **0999999999**
+- Mật khẩu: **password**
+
 Mở Minikube Dashboard:
 ```sh
 minikube dashboard
