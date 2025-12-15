@@ -27,6 +27,19 @@ type: Opaque
 stringData:
   smtp-password: <app password>
 ```
+Tạo Google App Password: [App Password](https://support.google.com/mail/answer/185833?hl=en#)
+
+## Sửa địa chỉ email dùng để gửi
+Trong `k8s/grafana/grafana-deployment.yaml`, sửa các biến `GF_SMTP_PASSWORD‎` và `GF_SMTP_FROM_ADDRESS` thành địa chỉ email đã tạo App Password ở trên.
+Ví dụ:
+```yaml
+- name: GF_SMTP_USER
+  value: "example@gmail.com"
+...
+- name: GF_SMTP_FROM_ADDRESS
+  value: "example@gmail.com"
+```
+
 # Chạy dự án
 
 ## Clone repo
@@ -38,7 +51,7 @@ cd boarding-house-management
 
 ## Build các service
 
-Khởi động Docker, chạy:
+Khởi động Docker và chạy:
 ```sh
 minikube start
 ```
