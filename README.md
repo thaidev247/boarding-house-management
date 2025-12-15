@@ -88,10 +88,7 @@ Mở Minikube Dashboard:
 minikube dashboard
 ```
 
-Kong Dashboard
-```sh
-http://localhost:8002
-```
+[Kong Dashboard](http://localhost:8002)
 
 # Load testing
 Trong thư mục dự án:
