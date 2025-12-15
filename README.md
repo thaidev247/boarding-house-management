@@ -17,7 +17,8 @@ Hướng dẫn chính thức:
 ## Cài đặt k6 (công cụ load testing)
 Hướng dẫn chính thức: [Grafana k6 docs](https://grafana.com/docs/k6/latest/set-up/install-k6/)
 
-## Tạo file `k8s/grafana/grafana-smtp-secret.yaml` để thêm App Password cho việc gửi mail cảnh báo
+# Cấu hình SMTP để gửi mail cảnh báo
+## Tạo file `k8s/grafana/grafana-smtp-secret.yaml` để thêm App Password
 ```yaml
 apiVersion: v1
 kind: Secret
@@ -25,7 +26,7 @@ metadata:
   name: grafana-smtp-secret
 type: Opaque
 stringData:
-  smtp-password: <app password>
+  smtp-password: <app password> # Thêm password ở đây
 ```
 Tạo Google App Password: [App Password](https://support.google.com/mail/answer/185833?hl=en#)
 
