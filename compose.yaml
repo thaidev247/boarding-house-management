@@ -206,18 +206,6 @@ services:
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=password
 
-  k6:
-    image: grafana/k6:latest
-    container_name: k6
-    volumes:
-      - ./k6:/scripts
-    environment:
-      - BASE_URL=http://localhost:8000
-    command: >
-      run /scripts/test.js
-    depends_on:
-      - kong
-
 volumes:
   user_db:
   tenant_db:

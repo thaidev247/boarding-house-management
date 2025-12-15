@@ -109,3 +109,31 @@ Trong thư mục dự án:
 ```sh
 k6 run ./k6/test.js
 ```
+
+# Thêm rate limit plugin cho Kong
+Trong file `k8s/kong/kong-configmap.yaml`, thêm vào mục `plugins:`
+
+```yaml
+- name: rate-limiting
+  config:
+    minute: 100
+    limit_by: ip
+    policy: local
+    fault_tolerant: true
+    hide_client_headers: false
+```
+
+Apply lại các file yaml:
+```sh
+kubectl apply -f ./k8s/kong
+```
+
+Khởi động lại kong deployment:
+```sh
+kubectl rollout restart deployment kong
+```
+```sh
+kubectl port-forward svc/kong 8000:8000 # API Gateway
+kubectl port-forward svc/kong 8001:8001 # Admin
+kubectl port-forward svc/kong 8002:8002 # Dashboard
+```

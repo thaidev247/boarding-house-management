@@ -24,6 +24,12 @@ spec:
               value: payment-db
             - name: DB_PORT
               value: "3306"
+            - name: DB_NAME
+              value: payment_db
+            - name: DB_USER
+              value: admin
+            - name: DB_PASS
+              value: password
           resources:
             requests:
               cpu: 100m
