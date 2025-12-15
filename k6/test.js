@@ -16,7 +16,7 @@ export const options = {
 const BASE_URL = __ENV.BASE_URL || "http://localhost:8000";
 
 export default function () {
-  const res = http.get(`${BASE_URL}/tenants`);
+  const res = http.get(`${BASE_URL}/rooms`);
 
   check(res, {
     "status is 200": (r) => r.status === 200,

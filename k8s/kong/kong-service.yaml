@@ -11,4 +11,6 @@ spec:
       port: 8000
     - name: admin
       port: 8001
+    - name: gui
+      port: 8002
   type: NodePort

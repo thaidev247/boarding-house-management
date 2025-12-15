@@ -67,8 +67,9 @@ kubectl apply -f ./k8s/grafana
 Expose các cổng của Grafana và Kong API:
 ```ssh
 kubectl port-forward svc/grafana 3000:3000
-kubectl port-forward svc/kong 8001:8001
-kubectl port-forward svc/kong 8000:8000
+kubectl port-forward svc/kong 8000:8000 # API Gateway
+kubectl port-forward svc/kong 8001:8001 # Admin
+kubectl port-forward svc/kong 8002:8002 # Dashboard
 ```
 
 Chạy trang web frontend (dùng bun [Bun](https://bun.sh/) package manager):
@@ -85,6 +86,11 @@ bun dev
 Mở Minikube Dashboard:
 ```sh
 minikube dashboard
+```
+
+Kong Dashboard
+```sh
+http://localhost:8002
 ```
 
 # Load testing
