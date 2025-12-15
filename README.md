@@ -10,7 +10,9 @@ Hướng dẫn chính thức:
 - [Windows](https://docs.docker.com/desktop/setup/install/windows-install/)
 - [Linux](https://docs.docker.com/desktop/setup/install/linux/)
 
-## Cài đặt minikube
+Mở Docker, vào **Settings > Resourses > WSL integration** --> **Enable**
+
+## Cài đặt minikube và kubectl
 Hướng dẫn chính thức:
 [Cài đặt Minikube](https://kubernetes.io/vi/docs/tasks/tools/install-minikube/)
 
@@ -51,7 +53,7 @@ Uncomment khai báo các biến liên quan trong `k8s/grafana/grafana-deployment
 ```
 
 ## Sửa địa chỉ email dùng để gửi mail
-Trong `k8s/grafana/grafana-deployment.yaml`, sửa các biến `GF_SMTP_PASSWORD‎` và `GF_SMTP_FROM_ADDRESS` thành địa chỉ email đã tạo App Password ở trên.
+Trong `k8s/grafana/grafana-deployment.yaml`, sửa các biến `GF_SMTP_PASSWORD` và `GF_SMTP_FROM_ADDRESS` thành địa chỉ email đã tạo App Password ở trên.
 Ví dụ:
 ```yaml
 - name: GF_SMTP_USER
@@ -97,8 +99,12 @@ kubectl apply -f ./k8s/services
 kubectl apply -f ./k8s/kong
 kubectl apply -f ./k8s/grafana
 ```
+Kiểm tra trạng thái các pods, kết quả status `Running` là ok:
+```sh
+kubectl get pods
+```
 
-Expose các cổng của Grafana và Kong API:
+Expose các cổng của Grafana và Kong API (mỗi lệnh một terminal):
 ```ssh
 kubectl port-forward svc/grafana 3000:3000
 kubectl port-forward svc/kong 8000:8000 # API Gateway
@@ -107,6 +113,10 @@ kubectl port-forward svc/kong 8002:8002 # Dashboard
 ```
 
 Chạy trang web frontend (dùng bun [Bun](https://bun.sh/) package manager):
+- Tạo file `.env` trong thư mục `frontend`
+```
+API_URL="http://localhost:8000"
+```
 ```sh
 cd ./frontend
 bun install
@@ -125,8 +135,25 @@ minikube dashboard
 [Kong Dashboard](http://localhost:8002)  
 [Grafana Dashboard](http://localhost:3000)
 
+Thông tin đăng nhập cho Grafana Dasboard:  
 - Username: **admin**
 - Password: **password**
+
+## Import Grafana Dasboard
+Chọn `Dashboards` > `Import dashboard`, nhập ID `7424` (Kong), nhấn `Load`, chọn datasource `Prometheus` --> `Import`
+
+![Import Grafana Dashboard](./images/import_grafana_dashboard.png)
+
+## Cấu hình Alert rule (cho việc gửi mail cảnh báo)
+Chọn `Alert rules` > `New alert rule`  
+Name: ví dụ `High request rate`  
+Query: `sum(rate(kong_http_requests_total[1m]))`  
+Alert condition: WHEN QUERY IS ABOVE 100 (hoặc số request/m khác)  
+Tạo Folder và Evaluation group mới (mục **3.** và **4.**)
+Chọn `grafana-default-email`ở mục **5.**
+
+## Cấu hình Contact points
+Chọn `Contact points` > Chỉnh sửa `grafana-default-email` đặt giá trị là email nhận thông báo.
 
 # Load testing
 Trong thư mục dự án:
