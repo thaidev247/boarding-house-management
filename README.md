@@ -30,7 +30,27 @@ stringData:
 ```
 Tạo Google App Password: [App Password](https://support.google.com/mail/answer/185833?hl=en#)
 
-## Sửa địa chỉ email dùng để gửi
+Uncomment khai báo các biến liên quan trong `k8s/grafana/grafana-deployment.yaml`:
+
+```yaml
+- name: GF_SMTP_ENABLED
+  value: "true"
+- name: GF_SMTP_HOST
+  value: "smtp.gmail.com:587"
+- name: GF_SMTP_USER
+  value: "thaidev247@gmail.com"
+- name: GF_SMTP_PASSWORD
+  valueFrom:
+    secretKeyRef:
+      name: grafana-smtp-secret
+      key: smtp-password
+- name: GF_SMTP_FROM_ADDRESS
+  value: "thaidev247@gmail.com"
+- name: GF_SMTP_FROM_NAME
+  value: "Grafana Alert"
+```
+
+## Sửa địa chỉ email dùng để gửi mail
 Trong `k8s/grafana/grafana-deployment.yaml`, sửa các biến `GF_SMTP_PASSWORD‎` và `GF_SMTP_FROM_ADDRESS` thành địa chỉ email đã tạo App Password ở trên.
 Ví dụ:
 ```yaml
@@ -102,7 +122,11 @@ Mở Minikube Dashboard:
 minikube dashboard
 ```
 
-[Kong Dashboard](http://localhost:8002)
+[Kong Dashboard](http://localhost:8002)  
+[Grafana Dashboard](http://localhost:3000)
+
+- Username: **admin**
+- Password: **password**
 
 # Load testing
 Trong thư mục dự án:
